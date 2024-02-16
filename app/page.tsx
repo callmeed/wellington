@@ -40,32 +40,27 @@ export default function Home() {
   }, [latestHtml])
 
   const downloadHtmlContent = () => {
-    // Create a Blob with the HTML content and specify its MIME type
     const blob = new Blob([latestHtml], { type: 'text/html' });
-    // Create a URL for the blob
     const url = URL.createObjectURL(blob);
-    // Create a temporary anchor element and set its attributes for download
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'htmlContent.html'; // Specify the file name for the download
-    // Append the anchor to the body, trigger the download, and remove the anchor
+    a.download = 'landing-page.html';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    // Revoke the blob URL to free up resources
     URL.revokeObjectURL(url);
   }
 
 
   return (
-    <div className="flex min-h-screen w-full">
-      <div className="flex-none w-96 p-2 border-r-2 border-slate-600">
-        <h1 className="text-2xl font-bold">Copilot</h1>
+    <div className="flex h-screen w-full">
+      <div className="flex-none w-96 p-2 border-r-2 bg-slate-900">
+        <h1 className="text-2xl font-bold text-white">Copilot</h1>
       </div>
 
-      <div className="grow h-full p-2 flex flex-col">
+      <div className="grow min-h-max h-full p-2 flex flex-col">
         <h1 className="text-2xl font-bold">Preview</h1>
-        <div className="h-full rounded rounded-md bg-slate-100 p-2 grow">
+        <div className="h-full rounded border border-slate-300 bg-slate-100 p-2 grow">
           <PreviewFrame htmlContent={latestHtml} />
         </div>
       </div>
@@ -73,18 +68,18 @@ export default function Home() {
       <div className="grow p-2">
       <h1 className="text-2xl font-bold">HTML</h1>
         <textarea
-          className="border border-gray-400 rounded text-slate-900 w-full"
+          className="border border-gray-400 rounded text-slate-900 w-full bg-slate-50"
           value={latestHtml}
           rows={20}
           onChange={(e) => setLatestHtml(e.target.value)}
         />
-        <button className="border border-gray-400 p-1 rounded bg-white0 text-gray-600 w-40"
+        <button className="border border-green-900 p-1 rounded bg-green-600 text-white w-40 mr-2"
           onClick={copyToClipboard}
         >
-          Copy to clipboard
+          Copy
         </button>
 
-        <button className="border border-gray-400 p-1 rounded bg-white0 text-gray-600 w-40"
+        <button className="border border-cyan-900 p-1 rounded bg-cyan-600 text-white w-40"
           onClick={downloadHtmlContent}
         >
           Download
